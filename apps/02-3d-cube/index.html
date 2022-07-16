@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02-3d-cube</title>
+</head>
+<body>
+<script type="notjs" id="vertex-shader">
+attribute vec3 a_position;
+uniform mat4 u_project;
+uniform mat4 u_rotatey;
+uniform mat4 u_rotatez;
+attribute vec3 a_color;
+varying vec3 color;
+
+void main() {
+    vec4 a = u_rotatez *  u_rotatey * vec4(a_position, 1);
+    gl_Position = u_project  *  vec4(a.xy, a.z , 1);
+    color = a_color;
+}
+</script>
+
+<script type="notjs" id="fragment-shader">
+precision mediump float;
+varying vec3 color;
+
+void main() {
+    gl_FragColor = vec4(color, 1.0);
+}
+</script>
+<canvas id="canvas" width="400" height="400"></canvas>
+<script src="index.js" type="module"></script>
+</body>
+</html>
